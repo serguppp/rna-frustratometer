@@ -1,0 +1,48 @@
+name: Python
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    name: Python (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: '0.11.28'
+          enable-cache: true
+
+      - name: Install Python
+        run: uv python install
+
+      - name: Install project and development dependencies
+        run: uv sync --locked --extra web --group dev
+
+      - name: Lint
+        run: uv run --locked --no-sync ruff check .
+
+      - name: Check formatting
+        run: uv run --locked --no-sync ruff format --check .
+
+      - name: Check types
+        run: uv run --locked --no-sync mypy
+
+      - name: Run tests
+        run: uv run --locked --no-sync pytest
+
+      - name: Build Python package
+        run: uv build
