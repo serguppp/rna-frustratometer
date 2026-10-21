@@ -40,7 +40,7 @@ repos:
 
       - id: pytest
         name: Pytest
-        entry: uv run --locked --no-sync pytest -q
+        entry: uv run --locked --no-sync python -m pytest -q
         language: system
         stages: [pre-push]
         pass_filenames: false

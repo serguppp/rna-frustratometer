@@ -1650,12 +1650,10 @@ dependencies = [
     { name = "gemmi" },
 ]
 
-[package.optional-dependencies]
-web = [
+[package.dev-dependencies]
+backend = [
     { name = "fastapi", extra = ["standard"] },
 ]
-
-[package.dev-dependencies]
 dev = [
     { name = "httpx" },
     { name = "mypy" },
@@ -1665,13 +1663,10 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "fastapi", extras = ["standard"], marker = "extra == 'web'", specifier = ">=0.156.3" },
-    { name = "gemmi", specifier = ">=0.7.5" },
-]
-provides-extras = ["web"]
+requires-dist = [{ name = "gemmi", specifier = ">=0.7.5" }]
 
 [package.metadata.requires-dev]
+backend = [{ name = "fastapi", extras = ["standard"], specifier = ">=0.156.3" }]
 dev = [
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "mypy", specifier = ">=2.4.0" },

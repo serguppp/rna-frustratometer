@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from rna_frustratometer.web.app import app
+from backend.app import app
 
 
 def test_health() -> None:
