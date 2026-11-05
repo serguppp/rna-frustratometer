@@ -1,10 +1,10 @@
 from pathlib import Path
-from tempfile import TemporaryDirectory
 
 from gemmi import Structure, cif, make_structure_from_block, read_pdb_string, read_structure
-from rna_tools.tools.mini_moderna3.moderna import exchange_single_base, load_model, write_model  # type: ignore[import-untyped]
 
 from .formats import SupportedFormats
+
+BASES = ["A", "C", "G", "U"]
 
 
 def load_structure_from_file_path(path: str | Path) -> Structure:
@@ -31,21 +31,3 @@ def remove_water_and_metal_ions(structure: Structure) -> None:
 
                 if len(residue) == 1 and residue[0].element.is_metal:
                     del chain[index]
-
-
-def mutate_rna(path: str | Path) -> None:
-    structure = load_structure_from_file_path(path)
-    remove_water_and_metal_ions(structure)
-
-    with TemporaryDirectory() as directory:
-        cleaned_path = Path(directory) / "cleaned.pdb"
-        structure.write_pdb(str(cleaned_path))
-
-        model = load_model(str(cleaned_path), "A")
-        exchange_single_base(model["1"], "A")
-        write_model(model, "1EHZ_A1A.pdb")
-
-
-def frustrate_rna(structure: Structure) -> float:
-    energy = 0.0
-    return energy

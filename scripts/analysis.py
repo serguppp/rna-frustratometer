@@ -1,18 +1,18 @@
-import argparse
+from pathlib import Path
 
-from rna_frustratometer.structures import read_structure
+from rna_frustratometer.pipeline import RNAfrustratometer
 
+data = ["1ANR", "1NC0", "2KOC"]
+for pdb_id in data:
+    analysis = RNAfrustratometer(
+        input_dir=Path(f"tests/data/{pdb_id}.pdb"),
+        output_dir=Path(f"results/{pdb_id}_cache_01"),
+    )
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Analyse RNA frustration")
-    parser.add_argument("path", help="Path to a PDB or mmCIF file")
-    args = parser.parse_args()
+    result = analysis.run()
 
-    structure = read_structure(args.path)
-    for model in structure:
-        for chain in model:
-            print(f"Chain {chain.name}: {len(chain)} residues")
-
-
-if __name__ == "__main__":
-    main()
+    for contact in result.contacts:
+        print(
+            f"{contact.chain_i}:{contact.residue_i} {contact.chain_j}:{contact.residue_j}",
+            contact.frustration,
+        )
