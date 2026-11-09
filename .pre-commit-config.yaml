@@ -16,20 +16,6 @@ repos:
         language: system
         types_or: [python, pyi]
 
-      - id: frontend-lint
-        name: Frontend lint
-        entry: bun run --cwd frontend lint
-        language: system
-        files: ^frontend/
-        pass_filenames: false
-
-      - id: frontend-format
-        name: Frontend formatting
-        entry: bun run --cwd frontend format:check
-        language: system
-        files: ^frontend/
-        pass_filenames: false
-
       - id: mypy
         name: Mypy
         entry: uv run --locked --no-sync mypy
@@ -41,14 +27,6 @@ repos:
       - id: pytest
         name: Pytest
         entry: uv run --locked --no-sync python -m pytest -q
-        language: system
-        stages: [pre-push]
-        pass_filenames: false
-        always_run: true
-
-      - id: frontend-build
-        name: Frontend typecheck and build
-        entry: bun run --cwd frontend build
         language: system
         stages: [pre-push]
         pass_filenames: false

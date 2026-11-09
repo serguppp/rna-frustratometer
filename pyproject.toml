@@ -1,7 +1,7 @@
 [project]
 name = "rna-frustratometer"
 version = "0.1.0"
-description = "Add your description here"
+description = "Tools for studying local energetic frustration in RNA structures"
 readme = "README.md"
 authors = [
     { name = "serguppp", email = "serg.urbaniak@gmail.com" }
@@ -20,24 +20,19 @@ build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
-    "httpx>=0.28.1",
     "mypy>=2.4.0",
     "pre-commit>=4.7.0",
     "pytest>=9.1.1",
     "ruff>=0.17.1",
 ]
-backend = [
-    "fastapi[standard]>=0.156.3",
-]
 
 [tool.uv]
-default-groups = ["dev", "backend"]
+default-groups = ["dev"]
 
 [tool.ruff]
 target-version = "py312"
 line-length = 100
 src = ["src", "."]
-extend-exclude = ["frontend"]
 
 [tool.ruff.lint]
 select = [
@@ -56,7 +51,7 @@ indent-style = "space"
 
 [tool.mypy]
 python_version = "3.12"
-files = ["src", "backend"]
+files = ["src"]
 strict = true
 warn_unreachable = true
 

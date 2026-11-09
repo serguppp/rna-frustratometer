@@ -30,7 +30,7 @@ jobs:
         run: uv python install
 
       - name: Install project and development dependencies
-        run: uv sync --locked --group backend --group dev
+        run: uv sync --locked --group dev
 
       - name: Lint
         run: uv run --locked --no-sync ruff check .
