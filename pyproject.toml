@@ -10,6 +10,7 @@ requires-python = ">=3.12"
 dependencies = [
     "gemmi>=0.7.5",
     "numpy>=2,<2.4",
+    "plotly>=7.1.0",
     "rna-tools>=3.28",
 ]
 
@@ -62,3 +63,7 @@ warn_unreachable = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra --import-mode=importlib"
+
+[[tool.mypy.overrides]]
+module = ["plotly", "plotly.*"]
+ignore_missing_imports = true

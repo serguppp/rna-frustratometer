@@ -1,6 +1,14 @@
 from pathlib import Path
 
-from gemmi import Structure, cif, make_structure_from_block, read_pdb_string, read_structure
+from gemmi import (
+    ResidueKind,
+    Structure,
+    cif,
+    find_tabulated_residue,
+    make_structure_from_block,
+    read_pdb_string,
+    read_structure,
+)
 
 from .formats import SupportedFormats
 
@@ -31,3 +39,20 @@ def remove_water_and_metal_ions(structure: Structure) -> None:
 
                 if len(residue) == 1 and residue[0].element.is_metal:
                     del chain[index]
+
+
+def retain_rna_only(structure: Structure) -> None:
+    for model in structure:
+        for chain in model:
+            for index in range(len(chain) - 1, -1, -1):
+                residue = chain[index]
+                info = find_tabulated_residue(residue.name)
+
+                if info.kind != ResidueKind.RNA:
+                    print(f"Removed: {chain.name}:{residue.seqid} ({residue.name})")
+                    del chain[index]
+
+    structure.remove_empty_chains()
+
+    if not any(len(chain) for model in structure for chain in model):
+        raise ValueError("No recognized RNA residues remain.")

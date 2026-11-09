@@ -10,7 +10,7 @@ from .briq import BriqMutationResult, run_briq_mutations
 from .mutation import MutationGenerator
 from .structures import (
     load_structure_from_file_path,
-    remove_water_and_metal_ions,
+    retain_rna_only,
 )
 
 PairKey = tuple[str, str, str, str]  # (chain_i, residue_i, chain_j, residue_j)
@@ -80,7 +80,9 @@ class RNAfrustratometer:
         for index in range(len(structure) - 1, 0, -1):
             del structure[index]
 
-        remove_water_and_metal_ions(structure)
+        # remove_water_and_metal_ions(structure)
+        retain_rna_only(structure)
+
         return structure
 
     def _prepare_variants(self, structure: Structure) -> MutationGenerator:
