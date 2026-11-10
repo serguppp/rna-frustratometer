@@ -3,11 +3,11 @@ from dataclasses import dataclass
 from pathlib import Path
 from shutil import copyfile
 from statistics import fmean, pstdev
+from typing import Literal
 
 from gemmi import Structure
 
-from .briq import BriqMutationResult, run_briq_mutations
-from .mutation import MutationGenerator
+from .cgrnasp import CgrnaspMutationResult, run_cgrnasp_mutations
 from .structures import (
     load_structure_from_file_path,
     retain_rna_only,
@@ -47,21 +47,42 @@ class AnalysisResult:
 
 
 class RNAfrustratometer:
-    def __init__(self, input_dir: Path, output_dir: Path) -> None:
+    def __init__(
+        self,
+        input_dir: Path,
+        output_dir: Path,
+        *,
+        contacts_file: Path | None = None,
+        executable: Path,
+        data_dir: Path,
+        sequence_separation: Literal["pdb", "ordinal"] = "ordinal",
+    ) -> None:
         self.input_path = Path(input_dir).resolve()
         self.output_dir = Path(output_dir).resolve()
+        self.contacts_file = Path(contacts_file).resolve() if contacts_file is not None else None
+        self.executable = Path(executable).resolve()
+        self.data_dir = Path(data_dir).resolve()
+        self.sequence_separation = sequence_separation
 
     def run(self) -> AnalysisResult:
         structure = self._load_structure()
-        generator = self._prepare_variants(structure)
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+        reference_path = self.output_dir / "reference.pdb"
+        if reference_path.exists():
+            raise FileExistsError("Use a new analysis output directory.")
+        structure.write_pdb(str(reference_path))
 
-        briq_result = run_briq_mutations(
-            generator,
-            workspace=self.output_dir,
+        cgrnasp_result = run_cgrnasp_mutations(
+            reference_path=reference_path,
+            contacts_file=self.contacts_file,
+            output_dir=self.output_dir / "cgrnasp",
+            executable=self.executable,
+            data_dir=self.data_dir,
+            sequence_separation=self.sequence_separation,  # type: ignore
         )
 
-        analysis = self._build_analysis(briq_result)
-        self._save_summary(briq_result, analysis)
+        analysis = self._build_analysis(cgrnasp_result)
+        self._save_summary(cgrnasp_result, analysis)
 
         return analysis
 
@@ -82,31 +103,40 @@ class RNAfrustratometer:
 
         # remove_water_and_metal_ions(structure)
         retain_rna_only(structure)
+        if self.sequence_separation == "ordinal":
+            self._validate_sequence_continuity(structure)
 
         return structure
 
-    def _prepare_variants(self, structure: Structure) -> MutationGenerator:
-        targets = {(chain.name, str(residue.seqid)) for chain in structure[0] for residue in chain}
+    @staticmethod
+    def _validate_sequence_continuity(structure: Structure) -> None:
+        """Reject ordinal indexing across unresolved or broken RNA backbones."""
+        for chain in structure[0]:
+            for index in range(1, len(chain)):
+                left, right = chain[index - 1], chain[index]
+                oxygen = next((atom for atom in left if atom.name == "O3'"), None)
+                phosphorus = next((atom for atom in right if atom.name == "P"), None)
+                label = f"{chain.name}:{left.seqid}-{right.seqid}"
+                if oxygen is None or phosphorus is None:
+                    raise ValueError(f"Cannot validate backbone continuity at {label}.")
+                distance = oxygen.pos.dist(phosphorus.pos)
+                if not 1.2 <= distance <= 2.2:
+                    raise ValueError(
+                        f"Backbone break at {label}: O3'-P = {distance:.3f} A. "
+                        "Verify the construct sequence before choosing a separation protocol."
+                    )
 
-        generator = MutationGenerator(structure)
-        generator.prepare_residues_variants(targets)
-        return generator
-
-    def _read_contacts(self, pairs_file: Path) -> list[PairKey]:
-        with pairs_file.open(newline="", encoding="utf-8") as file:
-            return [
-                (
-                    row["chain_i"],
-                    row["residue_i"],
-                    row["chain_j"],
-                    row["residue_j"],
+    def _read_contacts(self, variants_file: Path) -> list[PairKey]:
+        with variants_file.open(newline="", encoding="utf-8") as file:
+            return list(
+                dict.fromkeys(
+                    (row["chain_i"], row["residue_i"], row["chain_j"], row["residue_j"])
+                    for row in csv.DictReader(file)
                 )
-                for row in csv.DictReader(file)
-                if row["contact_type"] not in ("", "unannotated")
-            ]
+            )
 
-    def _build_analysis(self, result: BriqMutationResult) -> AnalysisResult:
-        contacts = self._read_contacts(result.pairs_file)
+    def _build_analysis(self, result: CgrnaspMutationResult) -> AnalysisResult:
+        contacts = self._read_contacts(result.variants_file)
         energies: dict[PairKey, list[float]] = {key: [] for key in contacts}
 
         with result.variants_file.open(newline="", encoding="utf-8") as file:
@@ -153,13 +183,13 @@ class RNAfrustratometer:
 
     def _save_summary(
         self,
-        briq_result: BriqMutationResult,
+        cgrnasp_result: CgrnaspMutationResult,
         analysis: AnalysisResult,
     ) -> None:
         summary_path = self.output_dir / "contact_variants.csv"
 
-        if briq_result.variants_file.resolve() != summary_path.resolve():
-            copyfile(briq_result.variants_file, summary_path)
+        if cgrnasp_result.variants_file.resolve() != summary_path.resolve():
+            copyfile(cgrnasp_result.variants_file, summary_path)
 
         print(f"Original energy: {analysis.native_energy:.6f}")
         print(f"Contacts: {len(analysis.contacts)}")

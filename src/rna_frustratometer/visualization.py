@@ -229,7 +229,7 @@ def plot_contact_map_classic(data: FrustrationPlotData, *, color_limit: float = 
                 [upper, CLASS_COLORS[1]],
                 [1, CLASS_COLORS[0]],
             ],
-            colorbar={"title": "F (BRiQ)", "thickness": 14, "outlinewidth": 0},
+            colorbar={"title": "F (cgRNASP)", "thickness": 14, "outlinewidth": 0},
             xgap=1,
             ygap=1,
             hoverongaps=False,
@@ -342,17 +342,7 @@ def plot_contact_fractions(data: FrustrationPlotData) -> go.Figure:
 
 
 PairKey = tuple[str, str, str, str]
-COMPONENTS = (
-    "E_bb",
-    "E_bo",
-    "E_oo",
-    "E_clash",
-    "E_base_ribose",
-    "E_base_phosphate",
-    "E_ribose_phosphate",
-    "E_rotamer",
-    "E_phosphate_local",
-)
+COMPONENTS = ("E_seq1", "E_seq2", "E_seq3_4", "E_long")
 
 
 def frustration(native: float, variants: list[float]) -> float | None:
@@ -361,7 +351,7 @@ def frustration(native: float, variants: list[float]) -> float | None:
 
 
 def plot_energy_components(path: Path) -> go.Figure:
-    """Show reference energies, contributions to F, and clash sensitivity."""
+    """Show cgRNASP reference components and their additive contributions to F."""
     with path.open(newline="", encoding="utf-8") as file:
         rows = list(csv.DictReader(file))
 
@@ -395,7 +385,6 @@ def plot_energy_components(path: Path) -> go.Figure:
 
     labels: list[str] = []
     total_scores: list[float | None] = []
-    no_clash_scores: list[float | None] = []
     contributions: dict[str, list[float | None]] = {name: [] for name in COMPONENTS}
     mean_deltas: dict[str, list[float]] = {name: [] for name in COMPONENTS}
 
@@ -418,17 +407,13 @@ def plot_energy_components(path: Path) -> go.Figure:
             mean_deltas[name].append(delta)
             contributions[name].append(None if sigma == 0 else delta / sigma)
 
-        totals_without_clash = [float(row["E_total"]) - float(row["E_clash"]) for row in variants]
-        native_without_clash = native - float(reference["E_clash"])
-        no_clash_scores.append(frustration(native_without_clash, totals_without_clash))
-
     figure = make_subplots(
         rows=2,
         cols=1,
         vertical_spacing=0.18,
         subplot_titles=(
             f"Reference energy components — E_total = {native:.3f}",
-            "Contributions to F and sensitivity to E_clash",
+            "cgRNASP contributions to F",
         ),
     )
 
@@ -436,7 +421,7 @@ def plot_energy_components(path: Path) -> go.Figure:
         go.Bar(
             x=list(COMPONENTS),
             y=[float(reference[name]) for name in COMPONENTS],
-            marker_color=["#d62728" if name == "E_clash" else "#4078a8" for name in COMPONENTS],
+            marker_color="#4078a8",
             showlegend=False,
             hovertemplate="%{x}<br>E=%{y:.4f}<extra></extra>",
         ),
@@ -460,10 +445,7 @@ def plot_energy_components(path: Path) -> go.Figure:
             col=1,
         )
 
-    for name, scores, color, symbol in (
-        ("F: full energy", total_scores, "black", "diamond"),
-        ("F: excluding E_clash", no_clash_scores, "#9333ea", "x"),
-    ):
+    for name, scores, color, symbol in (("F: full energy", total_scores, "black", "diamond"),):
         figure.add_trace(
             go.Scatter(
                 x=labels,
@@ -483,7 +465,7 @@ def plot_energy_components(path: Path) -> go.Figure:
         height=950,
         width=1300,
     )
-    figure.update_yaxes(title_text="Energy [BRiQ units]", row=1, col=1)
+    figure.update_yaxes(title_text="Energy [kBT]", row=1, col=1)
     figure.update_yaxes(title_text="Contribution / F", row=2, col=1)
     figure.update_xaxes(title_text="Contact", row=2, col=1)
     return figure
@@ -512,7 +494,7 @@ def create_frustration_plots(
 ) -> dict[str, go.Figure]:
     """Prepare data once and create the contact plots and optional energy report.
 
-    Plotting never reruns BRiQ. Radius affects only the spatial profiles.
+    Plotting only reads cgRNASP results. Radius affects only the spatial profiles.
     Frustration values remain those returned by the analysis pipeline.
     """
     data = prepare_frustration_plot_data(
