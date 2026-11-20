@@ -1,0 +1,354 @@
+[
+  {
+    "pdb": "2GIS",
+    "chain": "A",
+    "family": "SAM-I",
+    "state": "T. tengcongensis, SAM",
+    "nucleotides": 94,
+    "selected_model_index": 0,
+    "source_model_count": 1,
+    "source_url": "https://files.rcsb.org/download/2GIS.pdb",
+    "source_sha256": "519c034d4011adf494da0b06c1d10790cae7bdd0badeb35f4c94dc055e031194",
+    "prepared_sha256": "fe0a66694dc2cce4b31c7142d16690fa0f65bc520a20860873d4ea0caf0847ab",
+    "changes": [],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "existing geometry verified",
+    "removed_residues_from_selected_chain": {
+      "MG": 2,
+      "IRI": 4,
+      "SAM": 1,
+      "HOH": 88
+    }
+  },
+  {
+    "pdb": "4KQY",
+    "chain": "A",
+    "family": "SAM-I",
+    "state": "B. subtilis, SAM",
+    "nucleotides": 119,
+    "selected_model_index": 0,
+    "source_model_count": 1,
+    "source_url": "https://files.rcsb.org/download/4KQY.pdb",
+    "source_sha256": "e7b50a45f6cd14caff161e11e1bc689cb45c1c4c00c33cf1869ad55fdfd4e6aa",
+    "prepared_sha256": "4300077fea2fcb1216f1dd7b43c7336283db8896af05d63e906e79ff70c007bb",
+    "changes": [
+      "0: O5 prime position used as terminal P proxy"
+    ],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "prepared",
+    "removed_residues_from_selected_chain": {
+      "SAM": 1,
+      "MG": 2,
+      "HOH": 8
+    }
+  },
+  {
+    "pdb": "3IQN",
+    "chain": "A",
+    "family": "SAM-I",
+    "state": "T. tengcongensis, SAM",
+    "nucleotides": 94,
+    "selected_model_index": 0,
+    "source_model_count": 1,
+    "source_url": "https://files.rcsb.org/download/3IQN.pdb",
+    "source_sha256": "7e32e4438addb631f56a2b74195661392bcd13ddbcf7f53903b034cf898da1a8",
+    "prepared_sha256": "72b39ddc5b6dabc10a34050ab37bb816f91ad94ad798fa369715a124167f051e",
+    "changes": [],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "prepared",
+    "removed_residues_from_selected_chain": {
+      "BA": 5,
+      "K": 6,
+      "SAM": 1,
+      "HOH": 33
+    }
+  },
+  {
+    "pdb": "3IQP",
+    "chain": "A",
+    "family": "SAM-I",
+    "state": "A94G, apo",
+    "nucleotides": 94,
+    "selected_model_index": 0,
+    "source_model_count": 1,
+    "source_url": "https://files.rcsb.org/download/3IQP.pdb",
+    "source_sha256": "24d51f806e73470fa5561574e7ae963febd756af134fafd82aa098cf132a4d20",
+    "prepared_sha256": "1966f227acf765f62205441859852d1256e589eefa372a6370f546c95fad5378",
+    "changes": [],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "prepared",
+    "removed_residues_from_selected_chain": {
+      "BA": 10,
+      "HOH": 95
+    }
+  },
+  {
+    "pdb": "3IQR",
+    "chain": "A",
+    "family": "SAM-I",
+    "state": "A94G, SAM",
+    "nucleotides": 94,
+    "selected_model_index": 0,
+    "source_model_count": 1,
+    "source_url": "https://files.rcsb.org/download/3IQR.pdb",
+    "source_sha256": "f6e73b9b2fd470fd68d0ceaf3fca155cdf2dcf586e8a4d61795e823592484d47",
+    "prepared_sha256": "b7888805d4739509261f3e89eef19a749f659c283ac7851d020e1b18d1493779",
+    "changes": [],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "prepared",
+    "removed_residues_from_selected_chain": {
+      "BA": 9,
+      "SAM": 1,
+      "HOH": 48
+    }
+  },
+  {
+    "pdb": "2GDI",
+    "chain": "X",
+    "family": "TPP",
+    "state": "E. coli, TPP",
+    "nucleotides": 78,
+    "selected_model_index": 0,
+    "source_model_count": 1,
+    "source_url": "https://files.rcsb.org/download/2GDI.pdb",
+    "source_sha256": "8a84e7e471279968508467b3677274321d9d45659882ef6e78afa1fc164b5931",
+    "prepared_sha256": "64be52ef9d841ab924c44c07447db911ab12dd7314d61bdfdcf9e0eab10c0b10",
+    "changes": [],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "prepared",
+    "removed_residues_from_selected_chain": {
+      "GTP": 1,
+      "CCC": 1,
+      "NA": 2,
+      "K": 3,
+      "MG": 3,
+      "TPP": 1,
+      "HOH": 191
+    }
+  },
+  {
+    "pdb": "2CKY",
+    "chain": "A",
+    "family": "TPP",
+    "state": "Arabidopsis, TPP",
+    "nucleotides": 77,
+    "selected_model_index": 0,
+    "source_model_count": 1,
+    "source_url": "https://files.rcsb.org/download/2CKY.pdb",
+    "source_sha256": "f1c9e00ad9bfb771392dd25dbbf619f05b9f00e08f0201772a0063aae35a02c4",
+    "prepared_sha256": "aae293f32f13ba9a010e1f48ecc5e7c98a502236d463e83688c432d6bbd14054",
+    "changes": [],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "prepared",
+    "removed_residues_from_selected_chain": {
+      "MG": 5,
+      "OS": 5,
+      "TPP": 1
+    }
+  },
+  {
+    "pdb": "3D2G",
+    "chain": "A",
+    "family": "TPP",
+    "state": "Arabidopsis, TPP",
+    "nucleotides": 77,
+    "selected_model_index": 0,
+    "source_model_count": 1,
+    "source_url": "https://files.rcsb.org/download/3D2G.pdb",
+    "source_sha256": "1c78c13a0b48e77d0e2190964af0ef121b7f0ab8b453195651c8b502b38998c1",
+    "prepared_sha256": "8bdf25c8797aa7ee5b50c8cd2f4a7a1cb7d3a87929e74b31d6a9e0fbe17801be",
+    "changes": [],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "prepared",
+    "removed_residues_from_selected_chain": {
+      "MG": 5,
+      "TPP": 1,
+      "HOH": 98
+    }
+  },
+  {
+    "pdb": "3D2V",
+    "chain": "A",
+    "family": "TPP",
+    "state": "Arabidopsis, pyrithiamine pyrophosphate",
+    "nucleotides": 77,
+    "selected_model_index": 0,
+    "source_model_count": 1,
+    "source_url": "https://files.rcsb.org/download/3D2V.pdb",
+    "source_sha256": "57ad89e78a29afaa1631aae255f3b3121dcbab8b83a35bbc1188a827594425c2",
+    "prepared_sha256": "ddcf659a22d9eda67aaa92b280a01722448c3b1cdef4ca64e3e785ea0503146b",
+    "changes": [],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "prepared",
+    "removed_residues_from_selected_chain": {
+      "MG": 6,
+      "PYI": 1,
+      "HOH": 300
+    }
+  },
+  {
+    "pdb": "1Y27",
+    "chain": "X",
+    "family": "Guanine",
+    "state": "B. subtilis, guanine",
+    "nucleotides": 68,
+    "selected_model_index": 0,
+    "source_model_count": 1,
+    "source_url": "https://files.rcsb.org/download/1Y27.pdb",
+    "source_sha256": "6667f6eea17ebd24e64cbf93fdc1a080220c0a77dc372ec54124c60714d9b5c8",
+    "prepared_sha256": "503d2757ace084537dd2140ea9601f8059910a32325219d85c26fbe050b6fd69",
+    "changes": [
+      "81: CCC->C, terminal extra phosphate atoms removed; alpha P retained",
+      "14: GDP->G, terminal extra phosphate atoms removed; alpha P retained"
+    ],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "prepared",
+    "removed_residues_from_selected_chain": {
+      "GUN": 1,
+      "HOH": 18
+    }
+  },
+  {
+    "pdb": "6UBU",
+    "chain": "B",
+    "family": "Guanine",
+    "state": "B. subtilis, guanine",
+    "nucleotides": 67,
+    "selected_model_index": 0,
+    "source_model_count": 1,
+    "source_url": "https://files.rcsb.org/download/6UBU.pdb",
+    "source_sha256": "4ec142076ffd1b3ae22edc9c9bd13b08b4f2a13aa0a053f282ac26ee985d06cd",
+    "prepared_sha256": "552ba1d263eb79647e8e11f0e74a86e7df2e1718119480721811d9b5fd591632",
+    "changes": [
+      "15: O5 prime position used as terminal P proxy"
+    ],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "prepared",
+    "removed_residues_from_selected_chain": {
+      "NCO": 7,
+      "ACT": 3,
+      "GUN": 1,
+      "HOH": 240
+    }
+  },
+  {
+    "pdb": "6UC7",
+    "chain": "B",
+    "family": "Guanine",
+    "state": "N2-acetylguanine",
+    "nucleotides": 67,
+    "selected_model_index": 0,
+    "source_model_count": 1,
+    "source_url": "https://files.rcsb.org/download/6UC7.pdb",
+    "source_sha256": "68f43d1e42cb3b094d72dbd5546b1a19aa21ad1296a68f7a275465fda05c6147",
+    "prepared_sha256": "fa14282e00d941c7d0ba9a8ae08d9b8302475e7aed552a6c8a791e03952a533b",
+    "changes": [
+      "15: O5 prime position used as terminal P proxy"
+    ],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "prepared",
+    "removed_residues_from_selected_chain": {
+      "NCO": 8,
+      "Q44": 1,
+      "HOH": 224
+    }
+  },
+  {
+    "pdb": "6UC8",
+    "chain": "B",
+    "family": "Guanine",
+    "state": "8-aminoguanine",
+    "nucleotides": 67,
+    "selected_model_index": 0,
+    "source_model_count": 1,
+    "source_url": "https://files.rcsb.org/download/6UC8.pdb",
+    "source_sha256": "4cbe4a8d101aa64bb9f4c7188a2b912cce80869a84c954a5a62411ea25fd0c12",
+    "prepared_sha256": "661fa32ac0b9bc86afdd3ebf5e848c66721b058b992dff4a712a259fcf75790a",
+    "changes": [
+      "15: O5 prime position used as terminal P proxy"
+    ],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "prepared",
+    "removed_residues_from_selected_chain": {
+      "ANG": 1,
+      "NCO": 8,
+      "ACT": 1,
+      "HOH": 231
+    }
+  },
+  {
+    "pdb": "6UC9",
+    "chain": "B",
+    "family": "Guanine",
+    "state": "O6-cyclohexylmethylguanine",
+    "nucleotides": 67,
+    "selected_model_index": 0,
+    "source_model_count": 1,
+    "source_url": "https://files.rcsb.org/download/6UC9.pdb",
+    "source_sha256": "4c4ced14f1cd16364996a1904d7ff2fdcb14d7e632c3e161ac402479b8dc8302",
+    "prepared_sha256": "2cb05ec2c71e698c71dbc560961fc279eeb063d3d1a885b032a00d0549fe120d",
+    "changes": [
+      "15: O5 prime position used as terminal P proxy"
+    ],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "prepared",
+    "removed_residues_from_selected_chain": {
+      "NCO": 7,
+      "ACT": 1,
+      "CMG": 1,
+      "HOH": 197
+    }
+  },
+  {
+    "pdb": "2K95",
+    "chain": "A",
+    "family": "Telomerase",
+    "state": "WT",
+    "nucleotides": 48,
+    "selected_model_index": 0,
+    "source_model_count": 20,
+    "source_url": "https://files.rcsb.org/download/2K95.pdb",
+    "source_sha256": "8efb32874b1846d5d20b23e261a789938817360572b225bd5add9c96f31635bb",
+    "prepared_sha256": "74f4eb1e1ae12163d6db735937dc278d5f58043aa6bbf6727b5312cb04b8c500",
+    "changes": [
+      "93: O5 prime position used as terminal P proxy"
+    ],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "prepared",
+    "removed_residues_from_selected_chain": {}
+  },
+  {
+    "pdb": "2K96",
+    "chain": "A",
+    "family": "Telomerase",
+    "state": "delta U177",
+    "nucleotides": 47,
+    "selected_model_index": 0,
+    "source_model_count": 20,
+    "source_url": "https://files.rcsb.org/download/2K96.pdb",
+    "source_sha256": "1229a6a9714c41d14c9ccefb60c185607d22c39a7b7f85f6a426087a3a760be8",
+    "prepared_sha256": "08c071ba0a15eaf95ecbcea619534f1a4da8d328df20275dd087f51fb4cb0f1f",
+    "changes": [
+      "93: O5 prime position used as terminal P proxy"
+    ],
+    "backbone_breaks": [],
+    "sequence_separation": "ordinal",
+    "status": "existing geometry verified",
+    "removed_residues_from_selected_chain": {}
+  }
+]

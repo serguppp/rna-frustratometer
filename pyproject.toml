@@ -3,15 +3,15 @@ name = "rna-frustratometer"
 version = "0.1.0"
 description = "Tools for studying local energetic frustration in RNA structures"
 readme = "README.md"
+license-files = ["LICENSE-SIMRNA-ADAPTER"]
 authors = [
     { name = "serguppp", email = "serg.urbaniak@gmail.com" }
 ]
 requires-python = ">=3.12"
 dependencies = [
     "gemmi>=0.7.5",
+    "matplotlib>=3.9,<4",
     "numpy>=2,<2.4",
-    "plotly>=7.1.0",
-    "rna-tools>=3.28",
 ]
 
 [build-system]
@@ -58,7 +58,3 @@ warn_unreachable = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra --import-mode=importlib"
-
-[[tool.mypy.overrides]]
-module = ["plotly", "plotly.*"]
-ignore_missing_imports = true
